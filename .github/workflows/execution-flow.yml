@@ -42,6 +42,7 @@ jobs:
         run: npm ci
 
       - run: |
+          ls
           cd node_modules
           ls
 
