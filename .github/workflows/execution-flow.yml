@@ -41,6 +41,10 @@ jobs:
         if: steps.cacheid.outputs.cache-hit != 'true'
         run: npm ci
 
+      - run: |
+          cd node_modules
+          ls
+
       - name: Test code
         id: testid
         run: npm run test
