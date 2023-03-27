@@ -92,7 +92,7 @@ jobs:
       - name: Output contents
         run: ls
       - name: Deploy output
-        run: echo "Deploying............"
+        run: echo "Deploying........."
 
   report:
     needs:
