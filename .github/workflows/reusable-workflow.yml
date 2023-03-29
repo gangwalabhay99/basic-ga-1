@@ -5,18 +5,18 @@ on:
       artifact-name:
         description: the name of the deployable artifact files
         required: false
-        default: dist
+        default: raman
         type: string
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploying....
+      - name: Deploying script
         run: echo "deploying script hehe"
       - name: get code
         uses: actions/download-artifact@v3
         with:
-          name: ${{inputs.artifcat-name}}
+          name: ${{inputs.artifact-name}}
       - name: list files
         run: ls
 ###check reusable workfow data
