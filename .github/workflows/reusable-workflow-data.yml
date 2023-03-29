@@ -107,4 +107,4 @@ jobs:
         run: echo "some job has failed"
   reusable-workflow:
     needs: build
-    uses: ./.github/workflows/resuable-workflow.yml
+    uses: ./.github/workflows/reusable-workflow.yml
