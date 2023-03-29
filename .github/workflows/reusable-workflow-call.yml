@@ -1,4 +1,4 @@
-name: reusable-workflow data
+name: reusable-workflow call
 on:
   push:
     branches:
@@ -82,17 +82,9 @@ jobs:
 
   deploy:
     needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get build artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: dist-files
-
-      - name: Output contents
-        run: ls
-      - name: Deploy output
-        run: echo "Deploying....."
+    uses: ./.github/workflows/reusable-workflow.yml
+    with:
+      artifact-name: dist-files
 
   report:
     needs:
@@ -105,6 +97,3 @@ jobs:
     steps:
       - name: echoing
         run: echo "some job has failed"
-  reusable-workflow:
-    needs: build
-    uses: ./.github/workflows/reusable-workflow.yml
