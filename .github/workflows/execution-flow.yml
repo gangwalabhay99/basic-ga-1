@@ -14,7 +14,7 @@ jobs:
         id: cacheid
         uses: actions/cache@v3
         with:
-          path: ~/.npm
+          path: node_modules
           key: abhayg-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install dependencies
@@ -34,7 +34,7 @@ jobs:
         id: cacheid
         uses: actions/cache@v3
         with:
-          path: ~/.npm
+          path: node_modules
           key: abhayg-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install dependencies
@@ -68,7 +68,7 @@ jobs:
         id: cacheid
         uses: actions/cache@v3
         with:
-          path: ~/.npm
+          path: node_modules
           key: abhayg-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install dependencies
@@ -97,7 +97,7 @@ jobs:
       - name: Output contents
         run: ls
       - name: Deploy output
-        run: echo "Deploying........."
+        run: echo "Deploying......"
 
   report:
     needs:
