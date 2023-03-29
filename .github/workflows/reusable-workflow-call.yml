@@ -91,7 +91,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: printing deployment outputs
-        run: echo "${{needs.deploy.outputs.results}}"
+        run: echo "${{needs.deploy.outputs.result}}"
 
   report:
     needs:
