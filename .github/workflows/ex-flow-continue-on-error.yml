@@ -1,0 +1,107 @@
+name: Website Deployment
+on:
+  push:
+    branches:
+      - main
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+
+      - name: Cache dependencies
+        id: cacheid
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: abhayg-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies
+        if: steps.cacheid.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: Lint code
+        run: npm run lint
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+
+      - name: Cache dependencies
+        id: cacheid
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: abhayg-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies
+        if: steps.cacheid.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: Test code
+        id: testid
+        run: npm run test
+      #we have make error in code for doing it correct again goto component in it go to mainContentTest line 22 do help area
+      - name: Upload test report
+        continue-on-error: true
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-report
+          path: test.json
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+
+      - name: Cache dependencies
+        id: cacheid
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: abhayg-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies
+        if: steps.cacheid.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: Build website
+        id: build-website
+        run: npm run build
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-files
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: dist-files
+
+      - name: Output contents
+        run: ls
+      - name: Deploy output
+        run: echo "Deploying....."
+
+  report:
+    needs:
+      - deploy
+      - build
+      - test
+      - lint
+    runs-on: ubuntu-latest
+    if: failure()
+    steps:
+      - name: echoing
+        run: echo "some job has failed"

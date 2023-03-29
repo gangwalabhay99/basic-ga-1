@@ -49,7 +49,7 @@ jobs:
       - name: Test code
         id: testid
         run: npm run test
-      #we have make error in code for doing it correct again goto component in it go to mainContentTest line 22 do help area
+      #we have make error in code for doing it correct again goto component in it go to src-component-mainContentTest line 22 do help area
       - name: Upload test report
         if: failure() && steps.testid.outcome == 'failure'
         uses: actions/upload-artifact@v3
