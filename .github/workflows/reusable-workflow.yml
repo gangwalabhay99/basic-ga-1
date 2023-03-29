@@ -4,6 +4,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploying.....
+      - name: Deploying....
         run: echo "deploying script hehe"
 ###check reusable workfow data
