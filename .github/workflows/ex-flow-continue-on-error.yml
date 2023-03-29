@@ -1,4 +1,4 @@
-name: Website Deployment
+name: Website Deployment continue-on-error
 on:
   push:
     branches:
@@ -43,10 +43,10 @@ jobs:
 
       - name: Test code
         id: testid
+        continue-on-error: true
         run: npm run test
       #we have make error in code for doing it correct again goto component in it go to mainContentTest line 22 do help area
       - name: Upload test report
-        continue-on-error: true
         uses: actions/upload-artifact@v3
         with:
           name: test-report
