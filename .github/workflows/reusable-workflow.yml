@@ -1,3 +1,4 @@
+###check reusable workfow data
 name: reusable workflow
 on:
   workflow_call:
@@ -7,16 +8,30 @@ on:
         required: false
         default: raman
         type: string
+
+    outputs:
+      result:
+        description: the result of the deployment operation
+        value: ${{jobs.deploy.outputs.outcome}}
+
 jobs:
   deploy:
+    outputs:
+      outcome: ${{steps.deploy-job-output.outputs.step-result}}
+
     runs-on: ubuntu-latest
     steps:
       - name: Deploying script
         run: echo "deploying script hehe"
+
       - name: get code
         uses: actions/download-artifact@v3
         with:
           name: ${{inputs.artifact-name}}
+
       - name: list files
         run: ls
-###check reusable workfow data
+
+      - name: outputs
+        id: deploy-job-output
+        run: echo "step-result=success" >> $GITHUB_OUTPUT
